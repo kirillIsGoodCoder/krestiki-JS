@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Крестики-нолики.</title>
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+	<script type="text/javascript" src="game.js"></script>
+</head>
+<body>
+	<header>Крестики-нолики.</header>
+	<div id="game">
+		
+		<table width="450">
+			<tr>
+				<td x='1' y='1' class="block" id='1' onclick="">1</td><td x='2' y='1' class="block" id='2'onclick="">2</td><td x='3' y='1' class="block" id='3' onclick="">3</td>
+			</tr>
+			<tr>
+				<td x='1' y='2' class="block" id='4' onclick="">4</td><td x='2' y='2' class="block" id='5' onclick="">5</td><td x='3' y='2' class="block" id='6' onclick="">6</td>
+			</tr>
+			<tr>
+				<td x='1' y='3' class="block" id='7' onclick="">7</td><td x='2' y='3' class="block" id='8' onclick="">8</td><td x='3' y='3' class="block" id='9' onclick="">9</td>
+			</tr>
+		</table>			
+			<p class="gameMessage">Ход игрока "Нолик"<br/>Ход игрока "Крестик"</p>
+			<input type="submit" id='reset' value="Reset" name="" onclick=""
+	></div>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+
+		body{
+			background:black;
+		}
+
+		header{
+			margin-left: 300px;
+			margin-bottom: 50px;
+			width:300px;
+			padding:10px;
+			font-size: 30px;
+			font-weight: cursive;
+			background:black;
+			color:orangered;
+			border: 1px solid white;
+			border-radius: 10px;
+			text-align: center;
+		}
+                .block{
+                    width:147px;
+                    height:147px;
+                    margin: 0;
+                    padding: 0;
+                }
+
+		table{
+			width: 450px;
+			text-align: center;
+			height: 450px;
+			border-spacing: 2px;
+			border-color: blue;
+                        border-collapse:collapse;
+		}
+
+		td{	
+			width: 150px;
+/*                        font-size: 50px;*/
+			border:none;
+                        padding-left: 46px;
+                        padding-top: 46px;
+		}
+
+		#game{
+			margin-left:250px;
+			border:none;
+/*			width: 450px;
+			height: 450px;*/
+			background: crimson;
+		}
+
+		.gameMessage{
+			width: 450px;
+			margin-top: 40px;
+			font-size: 22px;
+			font-weight: bold;
+			background:#272822;
+			border-radius: 5px;
+			color:#4eba0f;
+			text-align: center;
+		}
+		#reset {
+			margin-top: 15px;
+			margin-bottom: 15px;
+			width: 70px;
+			height: 40px;
+			background: white;
+			border:4px solid black;
+			color:orange;
+			font-size: 22px;
+			text-align: center;
+			
+		}
+		#reset:hover{
+			border-color: red;
+		}
+	</style>
+</body>
+</html>
