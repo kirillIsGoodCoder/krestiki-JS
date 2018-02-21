@@ -21,7 +21,7 @@ function makeMove(gameParams) {
         gameField[gameParams.x][gameParams.y] = KRESTIK;
         playerName = NOLIK;
         if( gameMode === GAME_MODE_AI && !gameOver() ){
-            computerMove(playerName);
+            computerMove2(playerName);
             playerName = KRESTIK;
         }
     } else if (playerName === NOLIK) {
@@ -37,6 +37,144 @@ function computerMove (playerName) {
           let x = mas[c]['x'];
           let y = mas[c]['y'];
           gameField[x][y] = playerName;          
+}
+function computerMove2 (playerName) {
+        //1.проверить что нолик выиграет.
+        //2.если нолик выиграет,то ставить в клетку, в которой он выиграет.
+        let possibleWinNolik = possibleWin(NOLIK);
+        if (possibleWinNolik !== false){
+            var mas = possibleWinNolik;
+            let x = mas[0];
+            let y = mas[1];
+            gameField[x][y] = NOLIK;
+        }else{
+        //3.проверить что крестик выиграет.
+        //4.если крестик выиграет, то ставить 0 в клетку, в которой крестик выиграет
+        let possibleWinKrestik = possibleWin(KRESTIK);
+        if (possibleWinKrestik !== false) {
+            var mas = possibleWinKrestik;
+            let x = mas[0];
+            let y = mas[1];
+            gameField[x][y] = NOLIK;
+        }
+        //5.ставить в центр, если занято - в угол, если занято - в сторону.
+        else {
+            let mas = drawNOLIK();
+            let x = mas[0];
+            let y = mas[1];
+            gameField[x][y] = NOLIK;
+        }
+    }
+}
+
+function drawNOLIK () {
+        if( gameField[2][2] === EMPTY_CELL){
+            return [2,2];
+        }else if (gameField[1][1] === EMPTY_CELL){
+            return [1,1];
+        }else if (gameField[1][3] === EMPTY_CELL){
+            return [1,3];
+        }else if (gameField[3][1] === EMPTY_CELL){
+            return [3,1];
+        }else if (gameField[3][3] === EMPTY_CELL){
+            return [3,3];
+        }else if (gameField[1][2] === EMPTY_CELL){
+            return [1,2];
+        }else if (gameField[3][2] === EMPTY_CELL){
+            return [3,2];
+        }else if (gameField[2][1] === EMPTY_CELL){
+            return [2,1]
+        }else if (gameField[2][3] === EMPTY_CELL){
+            return [2,3];
+        }
+}
+
+
+function possibleWin (playerName) {
+    //проверка диагонали лево_верх - право_низ
+    if (gameField[1][1] === playerName && gameField[2][2] === playerName && gameField[3][3] === EMPTY_CELL) {
+        return [3,3];
+    }
+    if (gameField[1][1] === playerName && gameField[2][2] === EMPTY_CELL && gameField[3][3] === playerName) {
+        return [2,2];
+    }
+    if (gameField[1][1] === EMPTY_CELL && gameField[2][2] === playerName && gameField[3][3] === playerName) {
+        return [1,1];
+    }
+    //проверка диагонали право_верх - лево_низ
+    if (gameField[3][1] === EMPTY_CELL && gameField[2][2] === playerName && gameField[1][3] === playerName) {
+        return [3,1];
+    }
+    if (gameField[3][1] === playerName && gameField[2][2] === EMPTY_CELL && gameField[1][3] === playerName) {
+        return [2,2];
+    }
+    if (gameField[3][1] === playerName && gameField[2][2] === playerName && gameField[1][3] === EMPTY_CELL) {
+        return [1,3];
+    }
+    //проверка верхней линии
+    if (gameField[1][1] === EMPTY_CELL && gameField[2][1] === playerName && gameField[3][1] === playerName) {
+        return [1,1];
+    }
+    if (gameField[1][1] === playerName && gameField[2][1] === EMPTY_CELL && gameField[3][1] === playerName) {
+        return [2,1];
+    }
+    if (gameField[1][1] === playerName && gameField[2][1] === playerName && gameField[3][1] === EMPTY_CELL) {
+        return [3,1];
+    }
+    //проверка средней линии
+    if (gameField[1][2] === EMPTY_CELL && gameField[2][2] === playerName && gameField[3][2] === playerName) {
+        return [1,2];
+    }
+    if (gameField[1][2] === playerName && gameField[2][2] === EMPTY_CELL && gameField[3][2] === playerName) {
+        return [2,2];
+    }
+    if (gameField[1][2] === playerName && gameField[2][2] === playerName && gameField[3][2] === EMPTY_CELL) {
+        return [3,2];
+    }
+    //проверка нижней линии
+    if (gameField[1][3] === EMPTY_CELL && gameField[2][3] === playerName && gameField[3][3] === playerName) {
+        return [1,3];
+    }
+    if (gameField[1][3] === playerName && gameField[2][3] === EMPTY_CELL && gameField[3][3] === playerName) {
+        return [2,3];
+    }
+    if (gameField[1][3] === playerName && gameField[2][3] === playerName && gameField[3][3] === EMPTY_CELL) {
+        return [3,3];
+    }
+    //проверка левого столбца EMPTY_CELL
+    if (gameField[1][1] === EMPTY_CELL && gameField[1][2] === playerName && gameField[1][3] === playerName) {
+        return [1,1];
+    }
+    if (gameField[1][1] === playerName && gameField[1][2] === EMPTY_CELL && gameField[1][3] === playerName) {
+        return [1,2];
+    }
+    if (gameField[1][1] === playerName && gameField[1][2] === playerName && gameField[1][3] === EMPTY_CELL) {
+        return [1,3];
+    }
+    //проверка среднего столбца EMPTY_CELL
+    if (gameField[2][1] === EMPTY_CELL && gameField[2][2] === playerName && gameField[2][3] === playerName) {
+        return [2,1];
+    }
+    if (gameField[2][1] === playerName && gameField[2][2] === EMPTY_CELL && gameField[2][3] === playerName) {
+        return [2,2];
+    }
+    if (gameField[2][1] === playerName && gameField[2][2] === playerName && gameField[2][3] === EMPTY_CELL) {
+        return [2,3];
+    }
+    //проверка нижнего столбца EMPTY_CELL
+    if (gameField[3][1] === EMPTY_CELL && gameField[3][2] === playerName && gameField[3][3] === playerName) {
+        return [3,1];
+    }
+    if (gameField[3][1] === playerName && gameField[3][2] === EMPTY_CELL && gameField[3][3] === playerName) {
+        return [3,2];
+    }
+    if (gameField[3][1] === playerName && gameField[3][2] === playerName && gameField[3][3] === EMPTY_CELL) {
+        return [3,3];
+    }
+    return false;
+}
+function rule3 (playerName) {
+    
 }
 
 function getVisionField () {
